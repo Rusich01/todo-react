@@ -1,5 +1,5 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
-import Buttons from "../Button/Buttons";
+import Button from "../Button/Button";
 import Input from "../Input/Input";
 
 const TodoDone = () => {
@@ -20,7 +20,7 @@ const TodoDone = () => {
               Buy groceries
             </span>
           </div>
-          <Buttons
+          <Button
             className="text-gray-400 hover:text-red-500 cursor-pointer active:scale-95"
             text={<TrashIcon className="h-5 w-5" />}
           />

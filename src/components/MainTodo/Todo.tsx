@@ -1,4 +1,4 @@
-import Buttons from "../Button/Buttons";
+import Buttons from "../Button/Button";
 import EnterTodo from "../EnterTodo/EnterTodo";
 import TodoDone from "../todoDone/TodoDone";
 import TodoItem from "../TodoItem/TodoItem";
