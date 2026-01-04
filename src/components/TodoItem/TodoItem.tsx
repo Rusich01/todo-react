@@ -1,5 +1,6 @@
 import Buttons from "../Button/Buttons";
 import Input from "../Input/Input";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 const TodoItem = () => {
   return (
@@ -17,11 +18,11 @@ const TodoItem = () => {
             <span className="text-sm text-gray-900">Finish the report</span>
           </div>
           <Buttons
-            className="text-gray-400 hover:text-red-500 cursor-pointer"
-            text="🗑"
+            className="text-gray-400 hover:text-red-500 cursor-pointer active:scale-95"
+            text={<TrashIcon className="h-5 w-5" />}
           />
         </li>
-      </ul>{" "}
+      </ul>
     </>
   );
 };
