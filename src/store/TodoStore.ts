@@ -1,8 +1,8 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 interface TodoStore {
-  listTodo: Todo[];
+  listTodos: Todo[];
   awaitListTodo: Todo[];
-  isLoading: boolean;
 
   addTodo: (text: string) => void;
   removeTodo: (id: string) => void;
@@ -11,27 +11,33 @@ interface Todo {
   id: string;
   todo: string;
   completed: boolean;
+  isLoading?: boolean;
 }
 
-export const useTodostore = create<TodoStore>((set) => ({
-  listTodo: [],
-  awaitListTodo: [],
-  isLoading: false,
+export const useTodoStore = create<TodoStore>()(
+  persist<TodoStore>(
+    (set) => ({
+      listTodos: [],
+      awaitListTodo: [],
 
-  addTodo: (newTodo) =>
-    set((state) => ({
-      listTodo: [
-        ...state.listTodo,
-        {
-          id: Date.now().toString(),
-          todo: newTodo,
-          completed: true,
-        },
-      ],
-    })),
+      addTodo: (newTodo) =>
+        set((state) => ({
+          listTodos: [
+            ...state.listTodos,
+            {
+              id: Date.now().toString(),
+              todo: newTodo,
+              completed: false,
+              isLoading: true,
+            },
+          ],
+        })),
 
-  removeTodo: (id) =>
-    set((state) => ({
-      listTodo: state.listTodo.filter((item) => item.id !== id),
-    })),
-}));
+      removeTodo: (id) =>
+        set((state) => ({
+          listTodos: state.listTodos.filter((item) => item.id !== id),
+        })),
+    }),
+    { name: "todo-storage" }
+  )
+);

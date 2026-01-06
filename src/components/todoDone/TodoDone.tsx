@@ -1,8 +1,10 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
+// import { useTodoStore } from "../../store/TodoStore";
 
 const TodoDone = () => {
+  // const { removeTodo } = useTodoStore();
   return (
     <>
       <h2 className="text-xs uppercase tracking-wide text-gray-500 mt-6 mb-2">
