@@ -12,11 +12,18 @@ const EnterTodo = () => {
     addTodo(inputValue);
     setInputValue("");
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      addTodoClick();
+    }
+  };
   return (
     <div className="flex gap-2 mb-4">
       <Input
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={handleKeyDown}
         type="text"
         placeholder="Add a new task…"
         className="flex-1 rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"

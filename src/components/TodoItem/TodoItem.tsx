@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import { TrashIcon } from "@heroicons/react/24/outline";

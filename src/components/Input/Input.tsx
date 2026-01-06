@@ -6,6 +6,7 @@ interface InputProps {
   placeholder?: string;
   checked?: boolean;
   value?: string;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,10 +17,12 @@ const Input: FC<InputProps> = ({
   type,
   placeholder,
   checked,
+  onKeyDown,
 }) => (
   <input
     value={value}
     onChange={onChange}
+    onKeyDown={onKeyDown}
     className={className}
     type={type}
     placeholder={placeholder}

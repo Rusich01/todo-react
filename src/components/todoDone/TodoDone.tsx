@@ -1,10 +1,8 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
-// import { useTodoStore } from "../../store/TodoStore";
 
 const TodoDone = () => {
-  // const { removeTodo } = useTodoStore();
   return (
     <>
       <h2 className="text-xs uppercase tracking-wide text-gray-500 mt-6 mb-2">
@@ -15,7 +13,7 @@ const TodoDone = () => {
           <div className="flex items-center gap-3">
             <Input
               type="checkbox"
-              checked
+              // checked
               className="w-5 h-5 accent-green-600 cursor-pointer"
             />
             <span className="text-sm text-gray-500 line-through">
