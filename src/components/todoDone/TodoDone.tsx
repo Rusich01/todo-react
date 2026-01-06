@@ -13,7 +13,7 @@ const TodoDone = () => {
           <div className="flex items-center gap-3">
             <Input
               type="checkbox"
-              checked
+              // checked
               className="w-5 h-5 accent-green-600 cursor-pointer"
             />
             <span className="text-sm text-gray-500 line-through">
