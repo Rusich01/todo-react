@@ -1,31 +1,52 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-interface TodoStore {
+
+type TodoPersistState = {
   listTodos: Todo[];
-  awaitListTodo: Todo[];
   todoCompleted: Todo[];
+};
+interface TodoStore {
+  waitListsTodo: Todo[];
+  listTodos: Todo[];
+  todoCompleted: Todo[];
+  isOpened: boolean;
 
   addTodo: (text: string) => void;
   removeTodo: (id: string) => void;
   toggleTodo: (id: string) => void;
   doneTodo: (id: string) => void;
   removeCompletedTodo: (id: string) => void;
+  removeWaitListsTodo: () => void;
+  addWaitListsTodo: (waitTodo: string) => void;
+  openModal: () => void;
+  closeModal: () => void;
 }
 interface Todo {
   id: string;
   todo: string;
   completed: boolean;
-  isLoading?: boolean;
 }
 
 export const useTodoStore = create<TodoStore>()(
-  persist<TodoStore>(
+  persist(
     (set) => ({
       listTodos: [],
-      awaitListTodo: [],
+      waitListsTodo: [],
       todoCompleted: [],
 
-      addTodo: (newTodo: string) =>
+      addWaitListsTodo: (waitTodo) =>
+        set((state) => ({
+          waitListsTodo: [
+            ...state.waitListsTodo,
+            {
+              id: Date.now().toString(),
+              todo: waitTodo,
+              completed: false,
+            },
+          ],
+        })),
+
+      addTodo: (newTodo) =>
         set((state) => ({
           listTodos: [
             ...state.listTodos,
@@ -33,7 +54,6 @@ export const useTodoStore = create<TodoStore>()(
               id: Date.now().toString(),
               todo: newTodo,
               completed: false,
-              isLoading: true,
             },
           ],
         })),
@@ -69,7 +89,7 @@ export const useTodoStore = create<TodoStore>()(
           return state;
         }),
 
-      doneTodo: (id: string) =>
+      doneTodo: (id) =>
         set((state) => {
           const todo = state.listTodos.find((item) => item.id === id);
           if (!todo) return state;
@@ -88,15 +108,29 @@ export const useTodoStore = create<TodoStore>()(
           };
         }),
 
-      removeTodo: (id: string) =>
+      removeTodo: (id) =>
         set((state) => ({
           listTodos: state.listTodos.filter((item) => item.id !== id),
         })),
-      removeCompletedTodo: (id: string) =>
+      removeCompletedTodo: (id) =>
         set((state) => ({
           todoCompleted: state.todoCompleted.filter((item) => item.id !== id),
         })),
+      removeWaitListsTodo: () =>
+        set({
+          waitListsTodo: [],
+        }),
+
+      isOpened: false,
+      openModal: () => set({ isOpened: true }),
+      closeModal: () => set({ isOpened: false }),
     }),
-    { name: "todo-storage" }
+    {
+      name: "todo-storage",
+      partialize: (state): TodoPersistState => ({
+        listTodos: state.listTodos,
+        todoCompleted: state.todoCompleted,
+      }),
+    }
   )
 );

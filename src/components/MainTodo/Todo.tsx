@@ -1,4 +1,3 @@
-import Buttons from "../Button/Button";
 import EnterTodo from "../EnterTodo/EnterTodo";
 import TodoDone from "../todoDone/TodoDone";
 import TodoItem from "../TodoItem/TodoItem";
@@ -12,11 +11,7 @@ const Todo = () => {
         </h1>
 
         <EnterTodo />
-        {/* btn Cancel  */}
-        <Buttons
-          className="w-full text-sm text-red-500 mb-4 cursor-pointer"
-          text="Cancel pending tasks"
-        />
+
         {/* list of uncompleted tasks */}
         <TodoItem />
 
