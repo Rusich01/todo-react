@@ -4,9 +4,8 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { useTodoStore } from "../../store/TodoStore";
 
 const TodoItem = () => {
-  const { listTodos, removeTodo } = useTodoStore();
+  const { listTodos, removeTodo, toggleTodo, doneTodo } = useTodoStore();
 
-  console.log(listTodos);
   return (
     <>
       <h2 className="text-xs uppercase tracking-wide text-gray-500 mb-2">
@@ -20,6 +19,11 @@ const TodoItem = () => {
           >
             <div className="flex items-center gap-3">
               <Input
+                checked={listTodo.completed}
+                onChange={() => {
+                  toggleTodo(listTodo.id);
+                  doneTodo(listTodo.id);
+                }}
                 type="checkbox"
                 className="w-5 h-5 accent-blue-600 cursor-pointer"
               />
