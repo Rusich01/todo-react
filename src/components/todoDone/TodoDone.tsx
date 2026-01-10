@@ -4,12 +4,17 @@ import Input from "../Input/Input";
 import { useTodoStore } from "../../store/TodoStore";
 
 const TodoDone = () => {
-  const { todoCompleted, removeCompletedTodo, toggleTodo } = useTodoStore();
+  const { todoCompleted, toggleTodo, openModal } = useTodoStore();
   return (
     <>
-      <h2 className="text-xs uppercase tracking-wide text-gray-500 mt-6 mb-2">
-        Done list
-      </h2>
+      {todoCompleted.length >= 1 ? (
+        <h2 className="text-xs uppercase tracking-wide text-gray-500 mt-6 mb-2">
+          Done list
+        </h2>
+      ) : (
+        ""
+      )}
+
       <ul className="space-y-2">
         {todoCompleted.map((todo) => (
           <li
@@ -32,7 +37,9 @@ const TodoDone = () => {
             <Button
               className="text-gray-400 hover:text-red-500 cursor-pointer active:scale-95"
               text={<TrashIcon className="h-5 w-5" />}
-              onClick={() => removeCompletedTodo(todo.id)}
+              onClick={() => {
+                openModal(todo.id);
+              }}
             />
           </li>
         ))}

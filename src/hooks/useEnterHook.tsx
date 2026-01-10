@@ -1,18 +1,20 @@
 import { useTodoStore } from "../store/TodoStore";
 
 export const useEnterHooks = ({ inputAddTodo, timeoutRef }: any) => {
-  const { addWaitListsTodo, openModal, addTodo, closeModal } = useTodoStore();
+  const { addWaitListsTodo, openMessage, addTodo, closeMessage } =
+    useTodoStore();
 
   const addTodoClick = () => {
     const inputValue = inputAddTodo.current?.value;
 
     if (!inputValue?.trim()) return;
     addWaitListsTodo(inputValue);
-    openModal();
+    inputAddTodo.current!.value = "";
+    openMessage();
 
     timeoutRef.current = setTimeout(() => {
       addTodo(inputValue);
-      closeModal();
+      closeMessage();
       timeoutRef.current = null;
       inputAddTodo.current!.value = "";
     }, 1000);
@@ -22,7 +24,7 @@ export const useEnterHooks = ({ inputAddTodo, timeoutRef }: any) => {
     if (timeoutRef.current !== null) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
-      closeModal();
+      closeMessage();
       inputAddTodo.current!.value = "";
     }
   };

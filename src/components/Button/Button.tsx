@@ -7,10 +7,10 @@ interface ButtonsProps {
   text: string | ReactNode;
 }
 
-const Buttons: FC<ButtonsProps> = ({ className, onClick, text }) => (
+const Button: FC<ButtonsProps> = ({ className, onClick, text }) => (
   <button className={className} onClick={onClick}>
     {text}
   </button>
 );
 
-export default Buttons;
+export default Button;
