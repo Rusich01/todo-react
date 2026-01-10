@@ -10,6 +10,11 @@ interface TodoStore {
   listTodos: Todo[];
   todoCompleted: Todo[];
   isOpened: boolean;
+  isOpenedModal: {
+    open: boolean;
+    idTodo: null | string;
+  };
+  selectedTodoId: string | null;
 
   addTodo: (text: string) => void;
   removeTodo: (id: string) => void;
@@ -18,7 +23,9 @@ interface TodoStore {
   removeCompletedTodo: (id: string) => void;
   removeWaitListsTodo: () => void;
   addWaitListsTodo: (waitTodo: string) => void;
-  openModal: () => void;
+  openMessage: () => void;
+  closeMessage: () => void;
+  openModal: (id: string) => void;
   closeModal: () => void;
 }
 interface Todo {
@@ -33,6 +40,7 @@ export const useTodoStore = create<TodoStore>()(
       listTodos: [],
       waitListsTodo: [],
       todoCompleted: [],
+      selectedTodoId: null,
 
       addWaitListsTodo: (waitTodo) =>
         set((state) => ({
@@ -122,8 +130,12 @@ export const useTodoStore = create<TodoStore>()(
         }),
 
       isOpened: false,
-      openModal: () => set({ isOpened: true }),
-      closeModal: () => set({ isOpened: false }),
+      openMessage: () => set({ isOpened: true }),
+      closeMessage: () => set({ isOpened: false }),
+
+      isOpenedModal: { open: false, idTodo: null },
+      openModal: (id) => set({ isOpenedModal: { open: true, idTodo: id } }),
+      closeModal: () => set({ isOpenedModal: { open: false, idTodo: null } }),
     }),
     {
       name: "todo-storage",

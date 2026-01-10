@@ -4,13 +4,21 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { useTodoStore } from "../../store/TodoStore";
 
 const TodoItem = () => {
-  const { listTodos, removeTodo, toggleTodo, doneTodo } = useTodoStore();
+  const { listTodos, toggleTodo, doneTodo, openModal } = useTodoStore();
 
   return (
     <>
-      <h2 className="text-xs uppercase tracking-wide text-gray-500 mb-2">
-        Todo list
-      </h2>
+      {listTodos.length > 0 ? (
+        <h2 className="text-xs uppercase tracking-wide text-gray-500 mb-2">
+          Todo list
+        </h2>
+      ) : (
+        <h2 className="text-xs  tracking-wide text-gray-500 mb-2">
+          No todos yet.
+        </h2>
+      )}
+
+      <h2 className="text-xs uppercase tracking-wide text-gray-500 mb-2"></h2>
       <ul className="space-y-2">
         {listTodos?.map((listTodo) => (
           <li
@@ -32,7 +40,8 @@ const TodoItem = () => {
             <Button
               className="text-gray-400 hover:text-red-500 cursor-pointer active:scale-95"
               text={<TrashIcon className="h-5 w-5" />}
-              onClick={() => removeTodo(listTodo.id)}
+              // onClick={() => removeTodo(listTodo.id)}
+              onClick={() => openModal(listTodo.id)}
             />
           </li>
         ))}
