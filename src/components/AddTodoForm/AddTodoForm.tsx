@@ -1,14 +1,14 @@
 import Button from "../Button/Button";
 import { useRef } from "react";
 import { useTodoStore } from "../../store/TodoStore";
-import { useEnterHooks } from "../../hooks/useEnterHook";
+import { useAddTodoWithDelay } from "../../hooks/useAddTodoWithDelay";
 
-const EnterTodo = () => {
+const AddTodoForm = () => {
   const inputAddTodo = useRef<HTMLInputElement | null>(null);
   const timeoutRef = useRef<number | null>(null);
   const { isOpened } = useTodoStore();
 
-  const { handleKeyDown, addTodoClick, removeTimeout } = useEnterHooks({
+  const { handleKeyDown, addTodoClick, removeTimeout } = useAddTodoWithDelay({
     inputAddTodo,
     timeoutRef,
   });
@@ -39,4 +39,4 @@ const EnterTodo = () => {
   );
 };
 
-export default EnterTodo;
+export default AddTodoForm;

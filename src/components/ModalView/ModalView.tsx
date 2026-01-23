@@ -4,7 +4,6 @@ import Button from "../Button/Button";
 const ModalWindow = () => {
   const { removeCompletedTodo, isOpenedModal, closeModal, removeTodo } =
     useTodoStore();
-  console.log(isOpenedModal.idTodo);
 
   const deleteTodo = () => {
     if (isOpenedModal.idTodo) {
@@ -19,7 +18,7 @@ const ModalWindow = () => {
 
       <div className="relative w-full max-w-md rounded-3xl bg-white p-6 shadow-xl animate-scaleIn">
         <h2 className="text-lg font-semibold text-gray-900 mb-2 text-center">
-          do you want delete todo ?
+          Are you sure?
         </h2>
 
         <div className="mt-6 flex justify-end gap-3">

@@ -1,8 +1,8 @@
 import { useTodoStore } from "../../store/TodoStore";
-import EnterTodo from "../EnterTodo/EnterTodo";
-import ModalWindow from "../modalWindow/modalWindow";
-import TodoDone from "../todoDone/TodoDone";
-import TodoItem from "../TodoItem/TodoItem";
+import AddTodoForm from "../AddTodoForm/AddTodoForm";
+import ModalView from "../ModalView/ModalView";
+import CompletedTodoList from "../CompletedTodoList/CompletedTodoList";
+import TodoList from "../TodoList/TodoList";
 
 const Todo = () => {
   const { isOpenedModal } = useTodoStore();
@@ -13,10 +13,12 @@ const Todo = () => {
         <h1 className="text-center text-xl font-semibold text-gray-900 mb-4">
           Todo list
         </h1>
-        <EnterTodo />
-        <TodoItem />
-        <TodoDone />
-        {isOpenedModal.open && <ModalWindow />}
+
+        <AddTodoForm />
+        <TodoList />
+        <CompletedTodoList />
+
+        {isOpenedModal.open && <ModalView />}
       </div>
     </div>
   );
