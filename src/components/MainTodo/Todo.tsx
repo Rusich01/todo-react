@@ -1,12 +1,9 @@
-import { useTodoStore } from "../../store/TodoStore";
 import AddTodoForm from "../AddTodoForm/AddTodoForm";
-import ModalView from "../ModalView/ModalView";
 import CompletedTodoList from "../CompletedTodoList/CompletedTodoList";
 import TodoList from "../TodoList/TodoList";
+import ModalRoot from "../Modal/ModalRoot";
 
 const Todo = () => {
-  const { isOpenedModal } = useTodoStore();
-
   return (
     <div className="flex items-center justify-center">
       <div className="w-full max-w-sm bg-white/90 backdrop-blur-xl rounded-[28px] shadow-2xl p-5 mt-8">
@@ -17,8 +14,7 @@ const Todo = () => {
         <AddTodoForm />
         <TodoList />
         <CompletedTodoList />
-
-        {isOpenedModal.open && <ModalView />}
+        <ModalRoot />
       </div>
     </div>
   );

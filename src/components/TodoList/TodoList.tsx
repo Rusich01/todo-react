@@ -1,5 +1,4 @@
 import Button from "../Button/Button";
-import Input from "../Input/Input";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useTodoStore } from "../../store/TodoStore";
 
@@ -20,7 +19,7 @@ const TodoList = () => {
               className="flex items-center justify-between bg-white rounded-xl px-3 py-3 shadow-md"
             >
               <div className="flex items-center gap-3">
-                <Input
+                <input
                   checked={listTodo.completed}
                   onChange={() => {
                     toggleTodo(listTodo.id);
