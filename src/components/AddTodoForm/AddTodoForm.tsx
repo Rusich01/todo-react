@@ -28,13 +28,16 @@ const AddTodoForm = () => {
           onClick={addTodoClick}
         />
       </div>
-      {isOpened && (
-        <Button
-          className="w-full text-sm text-red-500 mb-4 cursor-pointer"
-          text="Cancel pending tasks"
-          onClick={() => removeTimeout()}
-        />
-      )}
+
+      <Button
+        className={
+          isOpened
+            ? "w-full text-sm text-red-500 mb-4 cursor-pointer"
+            : "mb-4 text-transparent"
+        }
+        text="Cancel pending tasks"
+        onClick={() => removeTimeout()}
+      />
     </>
   );
 };
