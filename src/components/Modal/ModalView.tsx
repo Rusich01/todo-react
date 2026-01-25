@@ -13,7 +13,7 @@ const ModalWindow = () => {
     }
   };
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center border border-[rgb(192_184_184)] rounded-[25px] overflow-hidden ">
+    <div className="fixed inset-0 flex items-center justify-center border border-[rgb(192_184_184)] rounded-[25px] overflow-hidden ">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
 
       <div className="relative w-full max-w-md rounded-3xl bg-white p-6 shadow-xl animate-scaleIn">
