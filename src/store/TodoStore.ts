@@ -5,8 +5,10 @@ type TodoPersistState = {
   listTodos: Todo[];
   todoCompleted: Todo[];
 };
+type TodoListType = "active" | "completed";
+
 interface TodoStore {
-  waitListsTodo: Todo[];
+  pendingListsTodo: Todo[];
   listTodos: Todo[];
   todoCompleted: Todo[];
   isOpened: boolean;
@@ -14,15 +16,12 @@ interface TodoStore {
     open: boolean;
     idTodo: null | string;
   };
-  selectedTodoId: string | null;
 
   addTodo: (text: string) => void;
-  removeTodo: (id: string) => void;
+  removeTodo: (id: string, list: TodoListType) => void;
   toggleTodo: (id: string) => void;
-  doneTodo: (id: string) => void;
-  removeCompletedTodo: (id: string) => void;
-  removeWaitListsTodo: () => void;
-  addWaitListsTodo: (waitTodo: string) => void;
+  completedTodo: (id: string) => void;
+  addPendingTodos: (pendingTodo: string) => void;
   openMessage: () => void;
   closeMessage: () => void;
   openModal: (id: string) => void;
@@ -38,17 +37,16 @@ export const useTodoStore = create<TodoStore>()(
   persist(
     (set) => ({
       listTodos: [],
-      waitListsTodo: [],
+      pendingListsTodo: [],
       todoCompleted: [],
-      selectedTodoId: null,
 
-      addWaitListsTodo: (waitTodo) =>
+      addPendingTodos: (pendingTodo) =>
         set((state) => ({
-          waitListsTodo: [
-            ...state.waitListsTodo,
+          pendingListsTodo: [
+            ...state.pendingListsTodo,
             {
               id: Date.now().toString(),
-              todo: waitTodo,
+              todo: pendingTodo,
               completed: false,
             },
           ],
@@ -70,7 +68,7 @@ export const useTodoStore = create<TodoStore>()(
         set((state) => {
           const listTodosId = state.listTodos.find((item) => item.id === id);
           const todoCompletedId = state.todoCompleted.find(
-            (item) => item.id === id
+            (item) => item.id === id,
           );
 
           if (listTodosId) {
@@ -85,7 +83,7 @@ export const useTodoStore = create<TodoStore>()(
           if (todoCompletedId) {
             return {
               todoCompleted: state.todoCompleted.filter(
-                (item) => item.id !== id
+                (item) => item.id !== id,
               ),
 
               listTodos: [
@@ -97,13 +95,13 @@ export const useTodoStore = create<TodoStore>()(
           return state;
         }),
 
-      doneTodo: (id) =>
+      completedTodo: (id) =>
         set((state) => {
           const todo = state.listTodos.find((item) => item.id === id);
           if (!todo) return state;
 
           const updatedListTodos = state.listTodos.filter(
-            (item) => item.id !== id
+            (item) => item.id !== id,
           );
           const updatedTodoCompleted = [
             ...state.todoCompleted,
@@ -116,17 +114,18 @@ export const useTodoStore = create<TodoStore>()(
           };
         }),
 
-      removeTodo: (id) =>
-        set((state) => ({
-          listTodos: state.listTodos.filter((item) => item.id !== id),
-        })),
-      removeCompletedTodo: (id) =>
-        set((state) => ({
-          todoCompleted: state.todoCompleted.filter((item) => item.id !== id),
-        })),
-      removeWaitListsTodo: () =>
-        set({
-          waitListsTodo: [],
+      removeTodo: (id, list) =>
+        set((state) => {
+          switch (list) {
+            case "active":
+              return {
+                listTodos: state.listTodos.filter((t) => t.id !== id),
+              };
+            case "completed":
+              return {
+                todoCompleted: state.todoCompleted.filter((i) => i.id !== id),
+              };
+          }
         }),
 
       isOpened: false,
@@ -143,6 +142,6 @@ export const useTodoStore = create<TodoStore>()(
         listTodos: state.listTodos,
         todoCompleted: state.todoCompleted,
       }),
-    }
-  )
+    },
+  ),
 );

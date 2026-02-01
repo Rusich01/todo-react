@@ -1,22 +1,20 @@
-import { useTodoStore } from "../../store/TodoStore";
+import { useRef } from "react";
 import Button from "../Button/Button";
+import { useModalView } from "../../hooks/useModalView";
 
-const ModalWindow = () => {
-  const { removeCompletedTodo, isOpenedModal, closeModal, removeTodo } =
-    useTodoStore();
+const ModalView = () => {
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  const deleteTodo = () => {
-    if (isOpenedModal.idTodo) {
-      removeCompletedTodo(isOpenedModal.idTodo);
-      removeTodo(isOpenedModal?.idTodo);
-      closeModal();
-    }
-  };
+  const { deleteTodo, closeModal } = useModalView({ modalRef });
+
   return (
     <div className="fixed inset-0 flex items-center justify-center border border-[rgb(192_184_184)] rounded-[25px] overflow-hidden ">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
 
-      <div className="relative w-full max-w-md rounded-3xl bg-white p-6 shadow-xl animate-scaleIn">
+      <div
+        ref={modalRef}
+        className="relative w-full max-w-md rounded-3xl bg-white p-6 shadow-xl animate-scaleIn"
+      >
         <h2 className="text-lg font-semibold text-gray-900 mb-2 text-center">
           Are you sure?
         </h2>
@@ -31,7 +29,7 @@ const ModalWindow = () => {
           <Button
             text="not yet"
             className="rounded-xl bg-[rgb(247_230_212)] hover:bg-[rgb(246_212_175)] px-4 py-2 text-sm font-medium text-gray-600 transition cursor-pointer active:scale-95"
-            onClick={() => closeModal()}
+            onClick={closeModal}
           />
         </div>
       </div>
@@ -39,4 +37,4 @@ const ModalWindow = () => {
   );
 };
 
-export default ModalWindow;
+export default ModalView;
