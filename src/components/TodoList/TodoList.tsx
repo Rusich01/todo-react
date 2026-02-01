@@ -3,7 +3,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { useTodoStore } from "../../store/TodoStore";
 
 const TodoList = () => {
-  const { listTodos, toggleTodo, doneTodo, openModal } = useTodoStore();
+  const { listTodos, toggleTodo, completedTodo, openModal } = useTodoStore();
 
   return (
     <>
@@ -18,19 +18,19 @@ const TodoList = () => {
               key={listTodo.id}
               className="flex items-center justify-between bg-white rounded-xl px-3 py-3 shadow-md"
             >
-              <div className="flex items-center gap-3">
+              <label className="flex items-center gap-3">
                 <input
                   checked={listTodo.completed}
                   onChange={() => {
                     toggleTodo(listTodo.id);
-                    doneTodo(listTodo.id);
+                    completedTodo(listTodo.id);
                   }}
                   type="checkbox"
                   className="w-5 h-5 accent-blue-600 cursor-pointer"
                 />
 
                 <span className="text-sm text-gray-900">{listTodo.todo}</span>
-              </div>
+              </label>
 
               <Button
                 className="text-gray-400 hover:text-red-500 cursor-pointer active:scale-95"

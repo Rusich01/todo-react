@@ -5,7 +5,7 @@ import ModalView from "./ModalView";
 const ModalRoot = () => {
   const { isOpenedModal } = useTodoStore();
 
-  if (!isOpenedModal.open) return;
+  if (!isOpenedModal.open) return null;
   return createPortal(<ModalView />, document.body);
 };
 

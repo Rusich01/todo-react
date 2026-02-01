@@ -3,14 +3,14 @@ import { useTodoStore } from "../store/TodoStore";
 
 interface UseAddTodoWithDelayProps {
   inputAddTodo: RefObject<HTMLInputElement | null>;
-  timeoutRef: RefObject<number | null>;
+  timeoutRef: RefObject<ReturnType<typeof setTimeout> | null>;
 }
 
 export const useAddTodoWithDelay = ({
   inputAddTodo,
   timeoutRef,
 }: UseAddTodoWithDelayProps) => {
-  const { addWaitListsTodo, openMessage, addTodo, closeMessage } =
+  const { addPendingTodos, openMessage, addTodo, closeMessage } =
     useTodoStore();
 
   const clearExistingTimeout = () => {
@@ -18,49 +18,41 @@ export const useAddTodoWithDelay = ({
     clearTimeout(timeoutRef.current);
     timeoutRef.current = null;
   };
+
   const clearInput = () => {
     if (inputAddTodo.current === null) return;
     inputAddTodo.current.value = "";
   };
 
-  const addTodoClick = () => {
+  const addTodoClick = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const inputValue = inputAddTodo.current?.value;
 
-    if (!inputValue) return;
     if (!inputValue?.trim()) return;
 
-    addWaitListsTodo(inputValue);
+    addPendingTodos(inputValue);
     clearInput();
-    clearExistingTimeout();
     openMessage();
+    clearExistingTimeout();
 
     timeoutRef.current = setTimeout(() => {
       addTodo(inputValue);
       closeMessage();
       clearInput();
-
-      timeoutRef.current = null;
+      clearExistingTimeout();
     }, 1000);
   };
 
   const removeTimeout = () => {
     if (timeoutRef.current !== null) {
-      timeoutRef.current = null;
-
       clearExistingTimeout();
       closeMessage();
       clearInput();
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      addTodoClick();
-    }
-  };
   return {
     addTodoClick,
     removeTimeout,
-    handleKeyDown,
   };
 };
