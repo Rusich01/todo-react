@@ -13,6 +13,7 @@ const ModalView = () => {
 
       <div
         ref={modalRef}
+        role="dialog"
         className="relative w-full max-w-md rounded-3xl bg-white p-6 shadow-xl animate-scaleIn"
       >
         <h2 className="text-lg font-semibold text-gray-900 mb-2 text-center">
