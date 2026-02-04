@@ -1,6 +1,6 @@
-import Button from "../Button/Button";
+import Button from "../button/button";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { useTodoStore } from "../../store/TodoStore";
+import { useTodoStore } from "../../store/todo-store";
 
 const TodoList = () => {
   const { listTodos, toggleTodo, completedTodo, openModal } = useTodoStore();
