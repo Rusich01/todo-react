@@ -1,5 +1,5 @@
 import { useEffect, type RefObject } from "react";
-import { useTodoStore } from "../store/TodoStore";
+import { useTodoStore } from "../store/todo-store";
 
 interface UseModalViewProps {
   modalRef: RefObject<HTMLDivElement | null>;
@@ -31,7 +31,7 @@ export const useModalView = ({ modalRef }: UseModalViewProps) => {
       window.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = originalStyle;
     };
-  }, [closeModal, isOpenedModal]);
+  }, [closeModal, isOpenedModal, modalRef]);
 
   const deleteTodo = () => {
     if (isOpenedModal.idTodo !== null) {

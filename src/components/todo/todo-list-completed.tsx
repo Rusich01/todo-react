@@ -1,9 +1,10 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
-import Button from "../Button/Button";
-import { useTodoStore } from "../../store/TodoStore";
+import Button from "../button/button";
+import { useTodoStore } from "../../store/todo-store";
 
-const CompletedTodoList = () => {
+const TodoListCompleted = () => {
   const { todoCompleted, toggleTodo, openModal } = useTodoStore();
+
   return (
     todoCompleted.length > 0 && (
       <>
@@ -24,10 +25,12 @@ const CompletedTodoList = () => {
                   onChange={() => toggleTodo(todo.id)}
                   className="w-5 h-5 accent-green-600 cursor-pointer"
                 />
+
                 <span className="text-sm text-gray-500 line-through">
                   {todo.todo}
                 </span>
               </label>
+
               <Button
                 className="text-gray-400 hover:text-red-500 cursor-pointer active:scale-95"
                 text={<TrashIcon className="h-5 w-5" />}
@@ -41,4 +44,4 @@ const CompletedTodoList = () => {
   );
 };
 
-export default CompletedTodoList;
+export default TodoListCompleted;

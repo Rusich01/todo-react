@@ -1,6 +1,7 @@
-import { useRef } from "react";
-import Button from "../Button/Button";
 import { useModalView } from "../../hooks/useModalView";
+import { useRef } from "react";
+
+import Button from "../button/button";
 
 const ModalView = () => {
   const modalRef = useRef<HTMLDivElement>(null);
